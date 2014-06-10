@@ -4,7 +4,7 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON "package.json"
     meta:
       dest: 'app'
-      static : 'app/static'
+      static : 'app'
       banner: """
       /*
         <%= pkg.name %> v<%= pkg.version %> - <%= grunt.template.today("d/m/yyyy") %>
@@ -15,22 +15,22 @@ module.exports = (grunt) ->
       """
     src:
       coffee : [
-        "src/coffee/*.coffee"
-        "src/coffee/*/*.coffee"]
+        "src/coffee/api.coffee"
+        "src/coffee/app.coffee"]
       stylus : [
         "src/stylus/*.styl"]
       jade   : [
         "src/jade/app.jade"]
       jade_files : [
         "src/jade/*.jade"]
-    jade :
-      build:
-        options:
-          data:
-            debug : true
-          pretty: true
-        files:
-          "<%=meta.dest%>/index.html" : "<%=src.jade%>"
+    # jade :
+    #   build:
+    #     options:
+    #       data:
+    #         debug : true
+    #       pretty: true
+    #     files:
+    #       "<%=meta.dest%>/index.html" : "<%=src.jade%>"
 
     concat :
       coffee :
@@ -40,14 +40,14 @@ module.exports = (grunt) ->
     coffee:
       build:
         files:
-          '<%=meta.static%>/js/<%=pkg.name%>.debug.js' : '.tmp/coffee/tmp.coffee'
+          '<%=meta.static%>/<%=pkg.name%>.js' : '.tmp/coffee/tmp.coffee'
 
-    stylus:
-      tmp:
-        options:
-          compress: false
-        files:
-          '<%=meta.static%>/css/<%=pkg.name%>.css' : '<%=src.stylus%>'
+    # stylus:
+    #   tmp:
+    #     options:
+    #       compress: false
+    #     files:
+    #       '<%=meta.static%>/css/<%=pkg.name%>.css' : '<%=src.stylus%>'
 
     uglify:
       options:
@@ -70,4 +70,4 @@ module.exports = (grunt) ->
         files : ["<%=src.jade%>","<%=src.jade_files%>"]
         tasks : ["jade"]
     
-  grunt.registerTask "default", [ "stylus", "concat", "coffee", "jade" ]
+  grunt.registerTask "default", [ "concat", "coffee" ]
