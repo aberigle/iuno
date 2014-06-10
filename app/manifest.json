@@ -1,0 +1,31 @@
+{
+  "name": "Twitter notifications",
+  "description": "Display your twitter notifications",
+  "version": "0.0.1",
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "app.js"
+    ]
+  },
+  "permissions": [
+    "alarms",
+    "https://twitter.com/"
+  ],
+  "optional_permissions": [
+    "*://*/"
+  ],
+  "browser_action": {
+    "default_icon": {
+      "19": "twitter-logo-19.png",
+      "38": "twitter-logo-38.png"
+    }
+  },
+  "icons": {
+    "16": "twitter-logo-16.png",
+    "48": "twitter-logo-48.png",
+    "128": "twitter-logo-128.png"
+  },
+  "minimum_chrome_version": "34",
+  "manifest_version": 2  
+}
