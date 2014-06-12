@@ -10,6 +10,7 @@ do ->
           callback? event.target
 
       xhr.open method, @path + path, true
+      xhr.setRequestHeader("x-requested-with", "XMLHttpRequest")
       if method in ["POST","PUT", "PATCH"]
         xhr.send JSON.stringify message
       else

@@ -1,7 +1,7 @@
 do ->
 
   show = (symbol, color, text) ->
-    chrome.browserAction.setBadgeText text: symbol
+    chrome.browserAction.setBadgeText text: String(symbol)
     chrome.browserAction.setBadgeBackgroundColor color: color
     chrome.browserAction.setTitle title: text
 
@@ -11,7 +11,6 @@ do ->
     - (-2) if it couldn't locate the notification count
   ###
   getNotificationCount = (callback) ->
-    tmp = document.createElement 'div'
     API.twitter.get (response) =>
       count  = 0
       html   = response.responseText
@@ -19,10 +18,9 @@ do ->
       
       if status isnt 200 then callback -1
       
-      tmp.innerHTML = html
-      span = tmp.querySelector 'a[href="/i/notifications"] .count-inner'
+      response = JSON.parse(html).note?.b?.response
 
-      if span then callback span.innerText
+      if response then callback response.count
       else callback -2       
 
   updateBadge = ->
